@@ -1,0 +1,376 @@
+import java.awt.*; import
+java.awt.event.*; import
+java.util.ArrayList;
+public class MainMenu extends Frame implements ActionListener
+{ Button studentBtn, facultyBtn, academicBtn, accountsBtn, admissionBtn;
+public MainMenu()
+{ setLayout(new FlowLayout());
+studentBtn = new Button("Student Management");
+facultyBtn = new Button("Faculty Management");
+academicBtn = new Button("Academic Department");
+accountsBtn = new Button("Accounts Department");
+admissionBtn = new Button("Admission Department");
+add(studentBtn); add(facultyBtn);
+add(academicBtn); add(accountsBtn);
+add(admissionBtn);
+studentBtn.addActionListener(this);
+facultyBtn.addActionListener(this);
+academicBtn.addActionListener(this);
+accountsBtn.addActionListener(this);
+admissionBtn.addActionListener(this);
+setBackground(Color.WHITE);
+setTitle("College Management System");
+setSize(400, 300);
+setVisible(true);
+}
+@Override
+public void actionPerformed(ActionEvent e) {
+if (e.getSource() == studentBtn)
+{ new
+StudentManagementFrame(); } else if
+(e.getSource() == facultyBtn) { new
+FacultyManagementFrame(); } else if
+(e.getSource() == academicBtn) { new
+AcademicDepartmentFrame(); } else if
+(e.getSource() == accountsBtn) { new
+AccountsDepartmentFrame(); } else if
+(e.getSource() == admissionBtn) {
+new AdmissionDepartmentFrame();
+}
+}
+public static void main(String[] args) {
+new MainMenu();
+}
+}
+class StudentManagementFrame extends Frame implements ActionListener {
+TextField idField, nameField, deptField;
+TextArea studentListArea;
+Button addStudentBtn, viewStudentsBtn, clearBtn;
+ArrayList<Student> students = new ArrayList<>();
+public StudentManagementFrame()
+{ setLayout(new FlowLayout());
+add(new Label("Student ID:"));
+idField = new TextField(15);
+add(idField);
+add(new Label("Name:"));
+nameField = new TextField(20);
+add(nameField);
+add(new Label("Department:"));
+deptField = new TextField(15);
+add(deptField);
+addStudentBtn = new Button("Add Student");
+viewStudentsBtn = new Button("View Students");
+clearBtn = new Button("Clear");
+add(addStudentBtn);
+add(viewStudentsBtn); add(clearBtn);
+studentListArea = new TextArea(10, 50);
+studentListArea.setBackground(Color.BLACK);
+studentListArea.setForeground(Color.WHITE);
+add(studentListArea);
+addStudentBtn.addActionListener(this);
+viewStudentsBtn.addActionListener(this);
+clearBtn.addActionListener(this);
+setBackground(Color.WHITE);
+setTitle("Student Management");
+setSize(600, 400);
+setVisible(true);
+}
+@Override public void
+actionPerformed(ActionEvent e) { if
+(e.getSource() == addStudentBtn)
+{ String id = idField.getText();
+String name = nameField.getText();
+String dept = deptField.getText();
+students.add(new Student(id, name, dept));
+studentListArea.append("Added: " + name + " (ID: " + id + ", Dept: " + dept
++ ")\n");
+} else if (e.getSource() == viewStudentsBtn)
+{ studentListArea.setText("Student List:\n"); for
+(Student student : students) {
+studentListArea.append(student.toString() + "\n");
+}
+} else if (e.getSource() == clearBtn) {
+idField.setText("");
+nameField.setText("");
+deptField.setText("");
+}
+}
+}
+class Student {
+private String id, name, department;
+public Student(String id, String name, String department)
+{ this.id = id; this.name = name;
+this.department = department;
+}
+@Override
+public String toString() {
+return id + " - " + name + " (Dept: " + department + ")";
+}
+}
+class FacultyManagementFrame extends Frame implements ActionListener {
+TextField idField, nameField, deptField;
+TextArea facultyListArea;
+Button addFacultyBtn, viewFacultyBtn, clearBtn;
+ArrayList<Faculty> faculties = new ArrayList<>();
+public FacultyManagementFrame()
+{ setLayout(new FlowLayout());
+add(new Label("Faculty ID:"));
+idField = new TextField(15);
+add(idField);
+add(new Label("Name:"));
+nameField = new TextField(20);
+add(nameField);
+add(new Label("Department:"));
+deptField = new TextField(15);
+add(deptField);
+addFacultyBtn = new Button("Add Faculty");
+viewFacultyBtn = new Button("View Faculties");
+clearBtn = new Button("Clear");
+add(addFacultyBtn); add(viewFacultyBtn);
+add(clearBtn);
+facultyListArea = new TextArea(10, 50);
+facultyListArea.setBackground(Color.BLACK);
+facultyListArea.setForeground(Color.WHITE);
+add(facultyListArea);
+addFacultyBtn.addActionListener(this);
+viewFacultyBtn.addActionListener(this);
+clearBtn.addActionListener(this);
+setBackground(Color.WHITE);
+setTitle("Faculty Management");
+setSize(600, 400);
+setVisible(true);
+}
+@Override public void
+actionPerformed(ActionEvent e) { if
+(e.getSource() == addFacultyBtn)
+{ String id = idField.getText();
+String name = nameField.getText();
+String dept = deptField.getText(); faculties.add(new
+Faculty(id, name, dept));
+facultyListArea.append("Added: " + name + " (ID: " + id + ", Dept: " + dept
++ ")\n");
+} else if (e.getSource() == viewFacultyBtn)
+{ facultyListArea.setText("Faculty List:\n");
+for (Faculty faculty : faculties) {
+facultyListArea.append(faculty.toString() + "\n");
+}
+} else if (e.getSource() == clearBtn) {
+idField.setText("");
+nameField.setText("");
+deptField.setText("");
+}
+}
+}
+class Faculty {
+private String id, name, department;
+public Faculty(String id, String name, String department)
+{ this.id = id; this.name = name;
+this.department = department;
+}
+@Override
+public String toString() {
+return id + " - " + name + " (Dept: " + department + ")";
+}
+}
+class AcademicDepartmentFrame extends Frame implements ActionListener {
+TextField courseCodeField, courseNameField, creditsField;
+TextArea courseListArea;
+Button addCourseBtn, viewCoursesBtn, clearBtn;
+ArrayList<Course> courses = new ArrayList<>();
+public AcademicDepartmentFrame()
+{ setLayout(new FlowLayout());
+add(new Label("Course Code:"));
+courseCodeField = new TextField(10);
+add(courseCodeField);
+add(new Label("Course Name:"));
+courseNameField = new TextField(20);
+add(courseNameField);
+add(new Label("Credits:"));
+creditsField = new TextField(5);
+add(creditsField);
+addCourseBtn = new Button("Add Course");
+viewCoursesBtn = new Button("View Courses");
+clearBtn = new Button("Clear");
+add(addCourseBtn);
+add(viewCoursesBtn); add(clearBtn);
+courseListArea = new TextArea(10, 50);
+courseListArea.setBackground(Color.BLACK);
+courseListArea.setForeground(Color.WHITE);
+add(courseListArea);
+addCourseBtn.addActionListener(this);
+viewCoursesBtn.addActionListener(this);
+clearBtn.addActionListener(this);
+setBackground(Color.WHITE);
+setTitle("Academic Department");
+setSize(600, 400);
+setVisible(true);
+}
+@Override public void
+actionPerformed(ActionEvent e) { if
+(e.getSource() == addCourseBtn) { String
+code = courseCodeField.getText(); String
+name = courseNameField.getText(); int
+credits; try {
+credits = Integer.parseInt(creditsField.getText());
+courses.add(new Course(code, name, credits));
+courseListArea.append("Added: " + name + " (" + code + ", Credits: " +
+credits + ")\n");
+} catch (NumberFormatException ex) {
+courseListArea.append("Invalid Credits Input\n");
+}
+} else if (e.getSource() == viewCoursesBtn)
+{ courseListArea.setText("Courses Offered:\n");
+for (Course course : courses) {
+courseListArea.append(course.toString() + "\n");
+}
+} else if (e.getSource() == clearBtn)
+{ courseCodeField.setText("");
+courseNameField.setText("");
+creditsField.setText("");
+}
+}
+}
+class Course {
+private String code, name;
+private int credits;
+public Course(String code, String name, int credits)
+{ this.code = code; this.name = name;
+this.credits = credits;
+}
+@Override
+public String toString() {
+return code + " - " + name + " (Credits: " + credits +
+")"; }
+}
+class AccountsDepartmentFrame extends Frame implements ActionListener {
+TextField studentIDField, studentNameField, amountField;
+TextArea paymentListArea;
+Button addPaymentBtn, viewPaymentsBtn, clearFieldsBtn;
+ArrayList<Payment> payments = new ArrayList<>();
+public AccountsDepartmentFrame()
+{ setLayout(new FlowLayout());
+add(new Label("Student ID:"));
+studentIDField = new TextField(15);
+add(studentIDField);
+add(new Label("Student Name:"));
+studentNameField = new TextField(20);
+add(studentNameField);
+add(new Label("Amount Paid:"));
+amountField = new TextField(10);
+add(amountField);
+addPaymentBtn = new Button("Add Payment");
+viewPaymentsBtn = new Button("View Payments");
+clearFieldsBtn = new Button("Clear Fields");
+add(addPaymentBtn); add(viewPaymentsBtn);
+add(clearFieldsBtn);
+paymentListArea = new TextArea(10, 50);
+paymentListArea.setBackground(Color.BLACK);
+paymentListArea.setForeground(Color.WHITE);
+add(paymentListArea);
+addPaymentBtn.addActionListener(this);
+viewPaymentsBtn.addActionListener(this);
+clearFieldsBtn.addActionListener(this);
+setBackground(Color.WHITE);
+setTitle("Accounts Department");
+setSize(600, 400);
+setVisible(true);
+}
+@Override public void
+actionPerformed(ActionEvent e) { if
+(e.getSource() == addPaymentBtn) { String
+id = studentIDField.getText(); String name = studentNameField.getText(); double
+amount; try {
+amount = Double.parseDouble(amountField.getText());
+payments.add(new Payment(id, name, amount));
+paymentListArea.append("Added Payment: " + name + " (ID: " + id + ", Amount: " + amount + ")\n");
+} catch (NumberFormatException ex) {
+paymentListArea.append("Invalid Amount\n");
+}
+} else if (e.getSource() == viewPaymentsBtn)
+{ paymentListArea.setText("Payments List:\n");
+for (Payment payment : payments) {
+paymentListArea.append(payment.toString() + "\n");
+}
+} else if (e.getSource() == clearFieldsBtn)
+{ studentIDField.setText("");
+studentNameField.setText("");
+amountField.setText("");
+}
+}
+}
+class Payment { private
+String id, name; private
+double amount;
+public Payment(String id, String name, double amount)
+{ this.id = id; this.name = name;
+this.amount = amount;
+}
+@Override
+public String toString() {
+return id + " - " + name + " (Amount Paid: " + amount + ")";
+}
+}
+class AdmissionDepartmentFrame extends Frame implements ActionListener {
+TextField studentIDField, studentNameField, courseField;
+TextArea admissionListArea;
+Button addAdmissionBtn, viewAdmissionsBtn, clearBtn;
+ArrayList<Admission> admissions = new ArrayList<>();
+public AdmissionDepartmentFrame()
+{ setLayout(new FlowLayout());
+add(new Label("Student ID:"));
+studentIDField = new TextField(15);
+add(studentIDField);
+add(new Label("Student Name:"));
+studentNameField = new TextField(20);
+add(studentNameField);
+add(new Label("Course:"));
+courseField = new TextField(15);
+add(courseField); addAdmissionBtn =
+new Button("Add Admission");
+viewAdmissionsBtn = new Button("View
+Admissions");
+clearBtn = new Button("Clear");
+add(addAdmissionBtn);
+add(viewAdmissionsBtn); add(clearBtn);
+admissionListArea = new TextArea(10, 50);
+admissionListArea.setBackground(Color.BLACK);
+admissionListArea.setForeground(Color.WHITE);
+add(admissionListArea);
+addAdmissionBtn.addActionListener(this);
+viewAdmissionsBtn.addActionListener(this);
+clearBtn.addActionListener(this);
+setBackground(Color.WHITE);
+setTitle("Admission Department");
+setSize(600, 400);
+setVisible(true);
+}
+@Override public void
+actionPerformed(ActionEvent e) { if
+(e.getSource() == addAdmissionBtn) {
+String id = studentIDField.getText();
+String name = studentNameField.getText();
+String course = courseField.getText();
+admissions.add(new Admission(id, name, course));
+admissionListArea.append("Added Admission: " + name + " (ID: " + id + ", Course: " + course + ")\n");
+} else if (e.getSource() == viewAdmissionsBtn)
+{ admissionListArea.setText("Admissions List:\n");
+for (Admission admission : admissions) {
+admissionListArea.append(admission.toString() + "\n");
+}
+} else if (e.getSource() == clearBtn) {
+studentIDField.setText("");
+studentNameField.setText("");
+courseField.setText("");
+}
+}
+}
+class Admission { private
+String id, name, course;
+public Admission(String id, String name, String course)
+{ this.id = id; this.name = name; this.course = course;
+}
+@Override public
+String toString() {
+return id + " - " + name + " (Course: " + course + ")";
+}
+}
